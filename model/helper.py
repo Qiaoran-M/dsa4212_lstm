@@ -6,7 +6,7 @@ import numpy as np
 # activation functions
 def softmax(x):
     '''softmax function with normalization'''
-    exp_x = jnp.exp(x - jnp.max(x))
+    exp_x = jnp.exp(x)
     return exp_x / jnp.sum(exp_x)
 
 
@@ -23,18 +23,17 @@ def tanh(x):
 # matrix weight initialization
 def init_weights(dim1, dim2=None):
     if dim2 is not None:
-        A = np.random.normal(0, 1, size=(dim1, dim2)) / np.sqrt(dim2)
+        A = np.random.uniform(-1, 1, size=(dim1, dim2))
     else:
-        A = np.random.normal(0, 1, size=(dim1, 1))
+        A = np.random.uniform(-1, 1, size=(dim1, 1))
     return A
 
 
 # mse calculation
 def mse(Y_true, Y_pred):
     squared_diff = (Y_pred - Y_true) ** 2
-    err = np.mean(squared_diff, axis=1)  # N*1
-    return np.mean(err)  # scalar
-
+    err = jnp.mean(squared_diff, axis=1)  # N*1
+    return jnp.mean(err)  # scalar
 
 
 
