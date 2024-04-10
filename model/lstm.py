@@ -19,7 +19,7 @@ def forward(params, states, X):
         output = Wy @ h + by
         return (h, c), output
     states, outputs = jax.lax.scan(step, states, X[:, :, jnp.newaxis])
-    return states, outputs[:, 0, 0]
+    return states, outputs[:, :, 0]
 forward_batch = jax.vmap(forward, in_axes=(None, 0, 0))
 
 @jax.jit
@@ -29,8 +29,8 @@ def mse_loss(params, states, X_batch, Y_batch):
     err = jnp.mean(squared_diff, axis=1)  # N*1
     loss_value = jnp.mean(err)  # scalar
     # try L2 reg
-    l2_reg = 0.5 * 0.001 * sum(jnp.sum(p**2) for p in params)
-    loss_value = jnp.mean(err) + l2_reg
+    # l2_reg = 0.5 * 0.001 * sum(jnp.sum(p**2) for p in params)
+    # loss_value = jnp.mean(err) + l2_reg
     return loss_value, states
 
 
