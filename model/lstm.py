@@ -19,7 +19,8 @@ def forward(params, states, X):
         output = Wy @ h + by
         return (h, c), output
     states, outputs = jax.lax.scan(step, states, X[:, :, jnp.newaxis])
-    return states, outputs[:, :, 0]
+    # return states, outputs[:, :, 0]
+    return states, outputs[-1, :, 0]
 forward_batch = jax.vmap(forward, in_axes=(None, 0, 0))
 
 @jax.jit
@@ -74,6 +75,7 @@ class Lstm():
         print('Start training ...')
         N_train, N_val = X_train.shape[0], X_val.shape[0]
         num_train_batches, num_val_batches = N_train // self.batch_size, N_val // self.batch_size 
+        train_losses, val_losses = [], []
         # iterate epoches
         for i in range(self.num_epoches):
             train_loss = self.train_epoch(X_train, Y_train, num_train_batches, mode='TRAIN')
@@ -81,6 +83,11 @@ class Lstm():
             # display loss every 10 epoch
             if i % 10 == 0:
                 print(f"Epoch {i+1}/{self.num_epoches}: training loss = {train_loss} | validation loss = {val_loss}")
+            # track losses
+            train_losses.append(train_loss)
+            val_losses.append(val_loss)
+            # if len(val_losses) >= 3 and val_losses[-3] <= val_losses[-2] and val_losses[-2] <= val_losses[-1]: break
+            # elif len(val_losses) >= 2 and np.abs(val_losses[-2] - val_losses[-1]) <= 10 ** (-5): break 
         print('Training finished!')
     
     def predict(self, X_test):
