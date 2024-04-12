@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This repository contains a Long Short Term Memory (LSTM) model implemented from scratch using mainly `numpy` and `jax` Python libraries. 
+This repository contains a Long Short-Term Memory (LSTM) model implemented from scratch using mainly `numpy` and `jax` Python libraries. 
 
-The purpose of this model is to perform prediction on time series data. Specifically, we trained and evaluated the model on ...[dataset]...
+The purpose of this LSTM model is to perform prediction on taxi demand time series data. Specifically, we trained and evaluated the model on yellow taxi trip records from Manhattan spanning the years 2022 and 2023 in the [TLC Trip Record dataset](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page). 
 
 ## Repository structure: 
 

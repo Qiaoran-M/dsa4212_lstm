@@ -5,7 +5,7 @@ import numpy as np
 
 # activation functions
 def softmax(x):
-    '''softmax function with normalization'''
+    '''softmax activation function'''
     exp_x = jnp.exp(x)
     return exp_x / jnp.sum(exp_x)
 
@@ -32,8 +32,8 @@ def init_weights(dim1, dim2=None):
 # mse calculation
 def mse(Y_true, Y_pred):
     squared_diff = (Y_pred - Y_true) ** 2
-    err = jnp.mean(squared_diff, axis=1)  # N*1
-    return jnp.mean(err)  # scalar
+    err = jnp.mean(squared_diff, axis=1) 
+    return jnp.mean(err)
 
 
 
