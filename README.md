@@ -9,5 +9,5 @@ The purpose of this LSTM model is to perform prediction on taxi demand time seri
 ## Repository structure: 
 
 - [run.ipynb](/run.ipynb): Full walkthough of data preparation, model training, and evaluation using MSE and line plot.
-- [taxi_data_processing.ipynb](/taxi_data_processing.ipynb): Data preprocessing code.
+- [Taxi_data_processing.ipynb](/Taxi_data_processing.ipynb): Data preprocessing code.
 - [model/](/model/): LSTM model and helper functions.
